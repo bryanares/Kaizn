@@ -8,5 +8,7 @@ data class HabitGoal(
     @PrimaryKey(autoGenerate = true) val habitGoalId: Long,
     var habitGoalName: Long? = null,
     var habitGoalInspiration: Long? = null,
-    var habitGoalReward: Long? = null
+    var habitGoalReward: Long? = null,
+    var habitGoalCreatedAt: Long? = null,
+    var habitGoalUpdatedAt: Long? = null
     )
