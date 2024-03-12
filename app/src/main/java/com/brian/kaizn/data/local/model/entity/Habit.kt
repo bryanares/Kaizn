@@ -9,6 +9,7 @@ data class Habit(
     var habitName: Long? = null,
     var habitDailyTarget: Int? = null,
     var habitUnit: Long? = null,
+    var habitCreatedDate: Long? = null,
     var habitStartDate: Long? = null,
     var habitProjectedEndDate: Long? = null,
     //do I create a separate model or utils for interval?
