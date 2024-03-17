@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class HabitGoal(
-    @PrimaryKey(autoGenerate = true) val habitGoalId: Long,
+data class HabitGoalEntity(
+    @PrimaryKey(autoGenerate = true) val habitGoalId: Long = 0,
     var habitGoalName: Long? = null,
     var habitGoalInspiration: Long? = null,
     var habitGoalReward: Long? = null,
