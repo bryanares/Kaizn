@@ -4,8 +4,10 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.brian.kaizn.data.local.model.entity.HabitEntity
+import com.brian.kaizn.data.local.model.entity.HabitWithGoalEntity
 
 @Dao
 interface KaiznDao {
@@ -16,7 +18,7 @@ interface KaiznDao {
 
     //update existing habit
     @Update
-    suspend fun updateExistingHabit(exixstingHabit : HabitEntity)
+    suspend fun updateExistingHabit(existingHabit: HabitEntity)
 
     //delete existing habit
     @Delete
@@ -30,11 +32,16 @@ interface KaiznDao {
     @Query("SELECT * FROM HabitEntity WHERE habitId = habitId")
     suspend fun getSingleHabit(
         habitId: Long
-    ) : HabitEntity
+    ): HabitEntity
 
     //get all habits
     @Query("SELECT * FROM HabitEntity ORDER BY habitCreatedDate DESC")
-    suspend fun getAllHabits() : List<HabitEntity>
+    suspend fun getAllHabits(): List<HabitEntity>
+
+    //get goal with habit
+    @Transaction
+    @Query("SELECT * FROM HabitEntity WHERE habitId = :habitEntityId")
+    suspend fun getHabitWithGoal(habitId: Long): List<HabitWithGoalEntity>? = null
 
 
 }
