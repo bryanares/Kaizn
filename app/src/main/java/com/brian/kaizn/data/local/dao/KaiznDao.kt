@@ -39,6 +39,7 @@ interface KaiznDao {
     suspend fun getAllHabits(): List<HabitEntity>
 
     //get goal with habit
+    //is the query correct?
     @Transaction
     @Query("SELECT * FROM HabitEntity WHERE habitId = :habitEntityId")
     suspend fun getHabitWithGoal(habitId: Long): List<HabitWithGoalEntity>? = null
