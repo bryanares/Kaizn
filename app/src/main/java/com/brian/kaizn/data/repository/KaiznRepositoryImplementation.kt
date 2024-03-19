@@ -1,33 +1,35 @@
 package com.brian.kaizn.data.repository
 
+import com.brian.kaizn.data.local.dao.KaiznDao
 import com.brian.kaizn.data.local.model.entity.HabitEntity
 import com.brian.kaizn.data.utils.Rezults
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class KaiznRepositoryImplementation(): KaiznRepository {
-    override suspend fun createNewHabit(newHabit: HabitEntity): Flow<Rezults<HabitEntity>> {
+class KaiznRepositoryImplementation @Inject constructor (kaiznDao: KaiznDao): KaiznRepository {
+    override suspend fun createNewHabit(newHabit: HabitEntity): Rezults<HabitEntity> {
         TODO("Not yet implemented")
     }
 
     override suspend fun updateExistingHabit(
         habitId: Long?,
         existingHabit: HabitEntity
-    ): Flow<Rezults<HabitEntity>> {
+    ): Rezults<HabitEntity> {
         TODO("Not yet implemented")
     }
 
     override suspend fun deleteSingleHabit(
         habitId: Long,
         userId: Long
-    ): Flow<Rezults<List<HabitEntity>>> {
+    ): Rezults<List<HabitEntity>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getSingleHabit(habitId: Long): Flow<Rezults<HabitEntity>> {
+    override suspend fun getSingleHabit(habitId: Long): Rezults<HabitEntity> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllHabits(userId: Long): Flow<Rezults<List<HabitEntity>>> {
+    override suspend fun getAllHabits(userId: Long): Rezults<List<HabitEntity>> {
         TODO("Not yet implemented")
     }
 }
