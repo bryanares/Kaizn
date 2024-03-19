@@ -36,13 +36,12 @@ interface KaiznDao {
 
     //get all habits
     @Query("SELECT * FROM HabitEntity ORDER BY habitCreatedDate DESC")
-    suspend fun getAllHabits(): List<HabitEntity>
+    suspend fun getAllHabits(): List<HabitWithGoalEntity>
 
     //get goal with habit
     //is the query correct?
     @Transaction
     @Query("SELECT * FROM HabitEntity WHERE habitId = :habitEntityId")
-    suspend fun getHabitWithGoal(habitId: Long): List<HabitWithGoalEntity>? = null
-
+    suspend fun getHabitWithGoal(habitEntityId: Long): List<HabitWithGoalEntity>? = null
 
 }
