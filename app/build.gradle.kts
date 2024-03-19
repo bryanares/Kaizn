@@ -1,10 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-//    id("com.google.devtools.ksp")
-    alias(libs.plugins.androidKsp)
-    kotlin("kapt")
-    id("com.google.dagger.hilt.android")
+//    alias(libs.plugins.androidKsp)
+//    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.devtoolsKsp)
 }
 
 android {
@@ -54,7 +53,6 @@ android {
 }
 
 dependencies {
-    val room_version = "2.6.1"
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -72,19 +70,18 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //room db
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-//    ksp("androidx.room:room-compiler:$room_version"
-//    implementation(libs.plugins.androidKsp)
-//    ksp(libs.plugins.androidKsp)
-    implementation(libs.android.ksp)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+//    implementation(libs.android.ksp)
+//    implementation(libs.plugins.devtoolsKsp)
     //dagger hilt
     implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    ksp("com.google.dagger:hilt-android-compiler:2.44")
 
 }
 // Allow references to generated code
-kapt {
-    correctErrorTypes = true
-}
+//kapt {
+//    correctErrorTypes = true
+//}
