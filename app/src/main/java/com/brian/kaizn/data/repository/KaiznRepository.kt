@@ -31,7 +31,6 @@ interface KaiznRepository {
 
     //get list of habits
     suspend fun getAllHabits(
-        userId: Long,
         selectedHabit: HabitWithGoalEntity
     ): Rezults<List<HabitWithGoalEntity>>
 }

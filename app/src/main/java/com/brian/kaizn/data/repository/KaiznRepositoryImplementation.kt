@@ -49,7 +49,7 @@ class KaiznRepositoryImplementation @Inject constructor(private val kaiznDao: Ka
         selectedHabit: HabitWithGoalEntity
     ): Rezults<HabitWithGoalEntity> {
         try {
-            kaiznDao.getSingleHabit(habitId)
+            kaiznDao.getHabitWithGoal(habitId)
         } catch (e: Error) {
             Log.d("repo", e.message.toString())
         }
@@ -57,7 +57,6 @@ class KaiznRepositoryImplementation @Inject constructor(private val kaiznDao: Ka
     }
 
     override suspend fun getAllHabits(
-        userId: Long,
         selectedHabit: HabitWithGoalEntity
     ): Rezults<List<HabitWithGoalEntity>> {
         try {
