@@ -1,24 +1,37 @@
 package com.brian.kaizn.data.repository
 
-import com.brian.kaizn.data.local.model.entity.HabitEntity
+import com.brian.kaizn.data.local.model.entity.HabitWithGoalEntity
 import com.brian.kaizn.data.utils.Rezults
-import kotlinx.coroutines.flow.Flow
 
 interface KaiznRepository {
 
     //create new habit
     ///what do I expect as return? Flow<sealed class>
-    suspend fun createNewHabit(newHabit : HabitEntity): Rezults<HabitEntity>
+    //I want to return a list of instances of HabitEntryWithGoal
+    suspend fun createNewHabit(newHabit: HabitWithGoalEntity): Rezults<List<HabitWithGoalEntity>>
 
     //update
-    suspend fun updateExistingHabit (habitId: Long?, existingHabit : HabitEntity): Rezults<HabitEntity>
+    //I want to return an instance of HabitEntryWithGoal but don't understand what it requires
+    suspend fun updateExistingHabit(
+        habitId: Long,
+        existingHabit: HabitWithGoalEntity
+    ): Rezults<List<HabitWithGoalEntity>>
 
     //delete habit
-    suspend fun deleteSingleHabit(habitId: Long, userId: Long): Rezults<List<HabitEntity>>
+    suspend fun deleteSingleHabit(
+        habitId: Long,
+        habit: HabitWithGoalEntity
+    ): Rezults<List<HabitWithGoalEntity>>
 
     //get single habit
-    suspend fun getSingleHabit(habitId: Long): Rezults<HabitEntity>
+    suspend fun getSingleHabit(
+        habitId: Long,
+        selectedHabit: HabitWithGoalEntity
+    ): Rezults<HabitWithGoalEntity>
 
     //get list of habits
-    suspend fun getAllHabits(userId: Long): Rezults<List<HabitEntity>>
+    suspend fun getAllHabits(
+        userId: Long,
+        selectedHabit: HabitWithGoalEntity
+    ): Rezults<List<HabitWithGoalEntity>>
 }
