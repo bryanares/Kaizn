@@ -11,5 +11,5 @@ data class HabitGoalEntity(
     var habitGoalReward: Long? = null,
     var habitGoalCreatedAt: Long? = null,
     var habitGoalUpdatedAt: Long? = null,
-    val habitEntityId: Long
-    )
+    val habitEntityId: Long? = null
+)
