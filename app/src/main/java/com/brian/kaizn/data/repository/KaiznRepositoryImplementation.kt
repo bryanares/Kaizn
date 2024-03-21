@@ -2,68 +2,61 @@ package com.brian.kaizn.data.repository
 
 import android.util.Log
 import com.brian.kaizn.data.local.dao.KaiznDao
+import com.brian.kaizn.data.local.model.entity.HabitEntity
 import com.brian.kaizn.data.local.model.entity.HabitWithGoalEntity
 import com.brian.kaizn.data.utils.Rezults
 import javax.inject.Inject
 
 class KaiznRepositoryImplementation @Inject constructor(private val kaiznDao: KaiznDao) :
     KaiznRepository {
-    override suspend fun createNewHabit(newHabit: HabitWithGoalEntity): Rezults<List<HabitWithGoalEntity>> {
-        try {
-            kaiznDao.insertNewHabit(newHabit)
-
+    override suspend fun createNewHabit(newHabit: HabitEntity): Rezults<Long> {
+        return try {
+            val result = kaiznDao.insertNewHabit(newHabit)
+            Rezults.Success(result)
         } catch (e: Error) {
-            Log.d("Repo", e.message.toString())
+            Rezults.Error(e.message)
         }
-        //return Rezults.Success(listOf(HabitWithGoalEntity(habitEntity = newHabit, habitGoalEntity = newHabitWith)))
-        return Rezults.Success(listOf(newHabit))
     }
 
-    override suspend fun updateExistingHabit(
-        habitId: Long,
-        existingHabit: HabitWithGoalEntity
-    ): Rezults<List<HabitWithGoalEntity>> {
+    override suspend fun updateExistingHabit(existingHabit: HabitWithGoalEntity): Rezults<ReturnNothing> {
         try {
-            kaiznDao.updateExistingHabit(habitId, existingHabit)
+            kaiznDao.updateExistingHabit(existingHabit)
+            return Rezults.Success(ReturnNothing())
         } catch (e: Error) {
             Log.d("repo", e.message.toString())
+            return Rezults.Error(e.message)
         }
-        //return Rezults.Success(List<HabitWithGoalEntity>())
-        return Rezults.Success(listOf(existingHabit))
     }
 
-    override suspend fun deleteSingleHabit(
-        habitId: Long,
-        habit: HabitWithGoalEntity
-    ): Rezults<List<HabitWithGoalEntity>> {
-        try {
-            kaiznDao.deleteHabit(habitId, habit)
+    override suspend fun deleteSingleHabit(habit: HabitWithGoalEntity): Rezults<ReturnNothing> {
+        return try {
+            kaiznDao.deleteHabit(habit)
+            Rezults.Success(ReturnNothing())
         } catch (e: Error) {
             Log.d("repo", e.message.toString())
+            Rezults.Error(e.message)
         }
-        return Rezults.Success(listOf(habit))
+
     }
 
-    override suspend fun getSingleHabit(
-        habitId: Long,
-        selectedHabit: HabitWithGoalEntity
-    ): Rezults<HabitWithGoalEntity> {
-        try {
-            kaiznDao.getHabitWithGoal(habitId)
+    override suspend fun getSingleHabit(habitId: Long): Rezults<HabitWithGoalEntity> {
+        return try {
+            val result = kaiznDao.getHabitWithGoal(habitId)
+            Rezults.Success(result)
         } catch (e: Error) {
             Log.d("repo", e.message.toString())
+            Rezults.Error(e.message)
         }
-        return Rezults.Success(selectedHabit)
+
     }
 
-    override suspend fun getAllHabits(
-        selectedHabit: HabitWithGoalEntity
-    ): Rezults<List<HabitWithGoalEntity>> {
-        try {
-            kaiznDao.getAllHabits()
+    override suspend fun getAllHabits(): Rezults<List<HabitWithGoalEntity>> {
+        return try {
+            val allHabits = kaiznDao.getAllHabits()
+            Rezults.Success(allHabits)
         } catch (e: Error) {
             Log.d("repo", e.message.toString())
+            Rezults.Error(e.message)
         }
-        return Rezults.Success(listOf(selectedHabit))
     }
 }
