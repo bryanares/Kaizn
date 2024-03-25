@@ -9,7 +9,9 @@ lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
 composeBom = "2024.02.02"
 androidKsp = "1.9.21-1.0.15"
-roomVersion ="2.6.1"
+roomVersion = "2.6.1"
+coroutineTest = "1.6.1"
+googleTruth ="1.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,10 +28,11 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
-androidx-room-runtime = {group = "androidx.room", name = "room-runtime", version.ref = "roomVersion"}
-androidx-room-compiler = {group = "androidx.room", name = "room-compiler", version.ref = "roomVersion"}
-androidx-room-ktx = {group = "androidx.room", name = "room-ktx", version.ref = "roomVersion"}
-
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
+android-coroutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutineTest" }
+google-truth ={group = "com.google.truth", name = "truth", version.ref = "googleTruth"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
