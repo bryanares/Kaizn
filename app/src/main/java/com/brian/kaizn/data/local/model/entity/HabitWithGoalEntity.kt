@@ -2,6 +2,7 @@ package com.brian.kaizn.data.local.model.entity
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import androidx.room.Relation
 
 //habit with goal
@@ -9,7 +10,6 @@ import androidx.room.Relation
 under the foreign key column name habitEntityId
  */
 
-@Entity
 data class HabitWithGoalEntity(
     @Embedded val habitEntity: HabitEntity,
     @Relation(
