@@ -13,6 +13,6 @@ import com.brian.kaizn.data.local.model.entity.UserEntity
     version = 1,
     exportSchema = false
 )
-abstract class KaiznRoomDatabase : RoomDatabase(){
-    abstract fun KaiznDao() : KaiznDao
+abstract class KaiznRoomDatabase : RoomDatabase() {
+    abstract fun KaiznDao(): KaiznDao
 }
