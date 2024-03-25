@@ -12,11 +12,11 @@ class MockKaiznRepositoryImplementation : KaiznRepository {
         return Rezults.Success(777)
     }
 
-    override suspend fun updateExistingHabit(existingHabit: HabitWithGoalEntity): Rezults<ReturnNothing> {
+    override suspend fun updateExistingHabit(existingHabit: HabitEntity): Rezults<ReturnNothing> {
         return Rezults.Success(ReturnNothing())
     }
 
-    override suspend fun deleteSingleHabit(habit: HabitWithGoalEntity): Rezults<ReturnNothing> {
+    override suspend fun deleteSingleHabit(habit: HabitEntity): Rezults<ReturnNothing> {
         return Rezults.Success(ReturnNothing())
     }
 
