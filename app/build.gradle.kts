@@ -74,6 +74,10 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
+    //test
+    implementation(libs.android.coroutine.test)
+    implementation(libs.google.truth)
+
 //    implementation(libs.android.ksp)
 //    implementation(libs.plugins.devtoolsKsp)
     //dagger hilt
