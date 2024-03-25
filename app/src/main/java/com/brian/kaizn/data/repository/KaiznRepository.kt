@@ -14,12 +14,12 @@ interface KaiznRepository {
     //update
     //I want to return an instance of HabitEntryWithGoal but don't understand what it requires
     suspend fun updateExistingHabit(
-        existingHabit: HabitWithGoalEntity
+        existingHabit: HabitEntity
     ): Rezults<ReturnNothing>
 
     //delete habit
     suspend fun deleteSingleHabit(
-        habit: HabitWithGoalEntity
+        habit: HabitEntity
     ): Rezults<ReturnNothing>
 
     //get single habit

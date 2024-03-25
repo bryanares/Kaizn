@@ -18,7 +18,7 @@ class KaiznRepositoryImplementation @Inject constructor(private val kaiznDao: Ka
         }
     }
 
-    override suspend fun updateExistingHabit(existingHabit: HabitWithGoalEntity): Rezults<ReturnNothing> {
+    override suspend fun updateExistingHabit(existingHabit: HabitEntity): Rezults<ReturnNothing> {
         try {
             kaiznDao.updateExistingHabit(existingHabit)
             return Rezults.Success(ReturnNothing())
@@ -28,7 +28,7 @@ class KaiznRepositoryImplementation @Inject constructor(private val kaiznDao: Ka
         }
     }
 
-    override suspend fun deleteSingleHabit(habit: HabitWithGoalEntity): Rezults<ReturnNothing> {
+    override suspend fun deleteSingleHabit(habit: HabitEntity): Rezults<ReturnNothing> {
         return try {
             kaiznDao.deleteHabit(habit)
             Rezults.Success(ReturnNothing())
