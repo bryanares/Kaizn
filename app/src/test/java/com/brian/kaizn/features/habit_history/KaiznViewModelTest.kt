@@ -1,6 +1,7 @@
 package com.brian.kaizn.features.habit_history
 
 
+import com.brian.kaizn.data.local.model.entity.HabitEntity
 import com.brian.kaizn.data.repository.KaiznRepository
 import com.brian.kaizn.features.habit_history.domain.model.KaiznUiEvents
 import com.brian.kaizn.features.habit_history.domain.model.KaiznUiStates
@@ -64,7 +65,7 @@ class KaiznViewModelTest {
     }
 
     @Test
-    fun test_get_all_habits_return_list_habitwithgoal() = runTest(){
+    fun test_get_all_habits_return_list_habit_with_goal() = runTest(){
 
         val states = mutableListOf<KaiznUiStates>()
         val events = mutableListOf<KaiznUiEvents>()
@@ -81,5 +82,21 @@ class KaiznViewModelTest {
         println("The result are $result")
         assertThat(states.last().isLoading).isFalse()
         assertThat(states.last().habitList.isNullOrEmpty()).isFalse()
+    }
+
+    @Test
+    fun test_delete_single_habit_return_nothing() = runTest() {
+        val states = mutableListOf<KaiznUiStates>()
+        val event = mutableListOf<KaiznUiEvents>()
+
+        backgroundScope.launch(unconfinedTestDispatcher) {
+            testViewModel.deleteHabit(habit = HabitEntity())
+        }
+
+        backgroundScope.launch(unconfinedTestDispatcher){
+            testViewModel.kaiznUiState.toList(states)
+        }
+        println("The States are $states")
+        assertThat(states.last().isLoading).isFalse()
     }
 }
