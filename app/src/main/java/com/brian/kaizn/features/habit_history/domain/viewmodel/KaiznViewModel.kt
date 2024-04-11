@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.brian.kaizn.data.di.DefaultDispatcher
 import com.brian.kaizn.data.di.IoDispatcher
 import com.brian.kaizn.data.di.MainDispatcher
+import com.brian.kaizn.data.local.model.entity.HabitEntity
 import com.brian.kaizn.data.repository.KaiznRepository
 import com.brian.kaizn.data.utils.Rezults
 import com.brian.kaizn.features.habit_history.domain.model.KaiznUiEvents
-import com.brian.kaizn.features.habit_history.domain.model.KaiznUiEvents.Error
 import com.brian.kaizn.features.habit_history.domain.model.KaiznUiStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -23,9 +23,9 @@ import javax.inject.Inject
 @HiltViewModel
 class KaiznViewModel @Inject constructor(
     private val kaiznRepository: KaiznRepository,
-    @IoDispatcher private val ioDispatcher : CoroutineDispatcher,
-    @DefaultDispatcher private val defaultDispatcher : CoroutineDispatcher,
-    @MainDispatcher private val mainDispatcher : CoroutineDispatcher
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
+    @MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _kaiznUiState = MutableStateFlow(KaiznUiStates())
@@ -43,7 +43,30 @@ class KaiznViewModel @Inject constructor(
 
     }
 
-    fun deleteHabit() {
+    fun deleteHabit(habit: HabitEntity) {
+        viewModelScope.launch(ioDispatcher) {
+            _kaiznUiState.update {
+                it.copy(isLoading = true)
+            }
+            val deletedhabit = kaiznRepository.deleteSingleHabit(habit)
+            when(deletedhabit){
+                is Rezults.Success ->{
+                    _kaiznUiState.update {
+                        it.copy(
+                            isLoading = false,
+                            isSuccessful = true,
+                            singleDeletedHabit = deletedhabit
+                            )
+                    }
+                }
+                is Rezults.Error ->{
+                    _kaiznUiEvent.send(KaiznUiEvents.Error(message = deletedhabit.message))
+                }
+            }
+        }
+        _kaiznUiState.update {
+            it.copy(isLoading = false)
+        }
 
     }
 
@@ -53,7 +76,7 @@ class KaiznViewModel @Inject constructor(
                 it.copy(isLoading = true)
             }
             val habit = kaiznRepository.getSingleHabit(habitId)
-            when(habit){
+            when (habit) {
                 is Rezults.Success -> {
                     _kaiznUiState.update {
                         it.copy(
@@ -63,7 +86,8 @@ class KaiznViewModel @Inject constructor(
                         )
                     }
                 }
-                is Rezults.Error ->{
+
+                is Rezults.Error -> {
                     //
                     _kaiznUiEvent.send(KaiznUiEvents.Error(message = habit.message))
                 }
@@ -82,7 +106,7 @@ class KaiznViewModel @Inject constructor(
                 it.copy(isLoading = true)
             }
             val habitList = kaiznRepository.getAllHabits()
-            when(habitList){
+            when (habitList) {
                 is Rezults.Success -> {
                     _kaiznUiState.update {
                         it.copy(
@@ -92,6 +116,7 @@ class KaiznViewModel @Inject constructor(
                         )
                     }
                 }
+
                 is Rezults.Error -> {
                     _kaiznUiEvent.send(KaiznUiEvents.Error(message = habitList.message))
                 }
