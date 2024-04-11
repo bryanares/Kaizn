@@ -77,6 +77,29 @@ class KaiznViewModel @Inject constructor(
     }
 
     fun getAllHabits() {
+        viewModelScope.launch(ioDispatcher) {
+            _kaiznUiState.update {
+                it.copy(isLoading = true)
+            }
+            val habitList = kaiznRepository.getAllHabits()
+            when(habitList){
+                is Rezults.Success -> {
+                    _kaiznUiState.update {
+                        it.copy(
+                            isLoading = false,
+                            isSuccessful = true,
+                            habitList = habitList.data
+                        )
+                    }
+                }
+                is Rezults.Error -> {
+                    _kaiznUiEvent.send(KaiznUiEvents.Error(message = habitList.message))
+                }
+            }
+            _kaiznUiState.update {
+                it.copy(isLoading = false)
+            }
+        }
 
     }
 
