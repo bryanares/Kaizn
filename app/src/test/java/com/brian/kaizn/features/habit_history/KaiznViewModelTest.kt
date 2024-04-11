@@ -63,4 +63,23 @@ class KaiznViewModelTest {
         assertThat(states.last().singleSelectedHabit == null).isFalse()
     }
 
+    @Test
+    fun test_get_all_habits_return_list_habitwithgoal() = runTest(){
+
+        val states = mutableListOf<KaiznUiStates>()
+        val events = mutableListOf<KaiznUiEvents>()
+
+        backgroundScope.launch(unconfinedTestDispatcher){
+            testViewModel.getAllHabits()
+        }
+        val result = testViewModel.kaiznUiState.value.habitList
+        backgroundScope.launch(unconfinedTestDispatcher) {
+            testViewModel.kaiznUiState.toList(states)
+        }
+
+        println("The States are $states")
+        println("The result are $result")
+        assertThat(states.last().isLoading).isFalse()
+        assertThat(states.last().habitList.isNullOrEmpty()).isFalse()
+    }
 }
