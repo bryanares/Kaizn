@@ -35,8 +35,33 @@ class KaiznViewModel @Inject constructor(
     val kaiznUiEvent = _kaiznUiEvent.receiveAsFlow()
 
 
-    fun createHabit() {
+    fun createHabit(newHabit: HabitEntity) {
+        viewModelScope.launch(ioDispatcher) {
+            _kaiznUiState.update {
+                it.copy(isLoading = true)
+            }
 
+            val createdHabit = kaiznRepository.createNewHabit(newHabit)
+
+            when (createdHabit) {
+                is Rezults.Success -> {
+                    _kaiznUiState.update {
+                        it.copy(
+                            isLoading = false,
+                            isSuccessful = true,
+                            habitId = createdHabit.data.toString()
+                        )
+                    }
+                }
+
+                is Rezults.Error -> {
+                    _kaiznUiEvent.send(KaiznUiEvents.Error(message = createdHabit.message))
+                }
+            }
+        }
+        _kaiznUiState.update {
+            it.copy(isLoading = false)
+        }
     }
 
     fun updateHabit() {
@@ -49,17 +74,18 @@ class KaiznViewModel @Inject constructor(
                 it.copy(isLoading = true)
             }
             val deletedhabit = kaiznRepository.deleteSingleHabit(habit)
-            when(deletedhabit){
-                is Rezults.Success ->{
+            when (deletedhabit) {
+                is Rezults.Success -> {
                     _kaiznUiState.update {
                         it.copy(
                             isLoading = false,
                             isSuccessful = true,
                             singleDeletedHabit = deletedhabit
-                            )
+                        )
                     }
                 }
-                is Rezults.Error ->{
+
+                is Rezults.Error -> {
                     _kaiznUiEvent.send(KaiznUiEvents.Error(message = deletedhabit.message))
                 }
             }
@@ -127,5 +153,4 @@ class KaiznViewModel @Inject constructor(
         }
 
     }
-
 }
