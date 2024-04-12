@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
@@ -40,7 +39,7 @@ class KaiznViewModelTest {
     @Test
     fun test_test() {
 //        assertEquals(2, 2 * 1)
-       assertThat(false).isFalse()
+        assertThat(false).isFalse()
     }
 
 
@@ -65,12 +64,12 @@ class KaiznViewModelTest {
     }
 
     @Test
-    fun test_get_all_habits_return_list_habit_with_goal() = runTest(){
+    fun test_get_all_habits_return_list_habit_with_goal() = runTest() {
 
         val states = mutableListOf<KaiznUiStates>()
         val events = mutableListOf<KaiznUiEvents>()
 
-        backgroundScope.launch(unconfinedTestDispatcher){
+        backgroundScope.launch(unconfinedTestDispatcher) {
             testViewModel.getAllHabits()
         }
         val result = testViewModel.kaiznUiState.value.habitList
@@ -79,7 +78,7 @@ class KaiznViewModelTest {
         }
 
         println("The States are $states")
-        println("The result are $result")
+        println("The results are $result")
         assertThat(states.last().isLoading).isFalse()
         assertThat(states.last().habitList.isNullOrEmpty()).isFalse()
     }
@@ -93,10 +92,26 @@ class KaiznViewModelTest {
             testViewModel.deleteHabit(habit = HabitEntity())
         }
 
-        backgroundScope.launch(unconfinedTestDispatcher){
+        backgroundScope.launch(unconfinedTestDispatcher) {
             testViewModel.kaiznUiState.toList(states)
         }
         println("The States are $states")
         assertThat(states.last().isLoading).isFalse()
+    }
+    @Test
+    fun insert_single_habit_return_row_id() = runTest {
+        val states = mutableListOf<KaiznUiStates>()
+        val event = mutableListOf<KaiznUiEvents>()
+
+        backgroundScope.launch (unconfinedTestDispatcher){
+            testViewModel.createHabit(newHabit = HabitEntity())
+        }
+        backgroundScope.launch(unconfinedTestDispatcher){
+            testViewModel.kaiznUiState.toList(states)
+        }
+        println("The States are $states")
+        println("the id is ${states.last().habitId}")
+        assertThat(states.last().isLoading).isFalse()
+        assertThat(states.last().habitId == null).isFalse()
     }
 }
