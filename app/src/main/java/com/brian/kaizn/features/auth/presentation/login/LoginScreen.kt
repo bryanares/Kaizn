@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.brian.kaizn.R
 
 
@@ -30,13 +32,13 @@ class LoginScreen {
 
 }
 
-@Preview(showBackground = true)
 @Composable
 fun Login(modifier: Modifier = Modifier) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     Surface {
+
         Column(
             modifier = Modifier
                 .padding(all = 24.dp)
@@ -45,6 +47,14 @@ fun Login(modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.Start
 
         ) {
+            Text(
+                modifier = Modifier
+                    .padding(all = 6.dp),
+                style = MaterialTheme.typography.titleLarge,
+                text = "Login",
+                fontSize = 40.sp,
+            )
+
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -77,7 +87,7 @@ fun Login(modifier: Modifier = Modifier) {
 //            style = MaterialTheme.typography.body2,
 
                 modifier = Modifier
-                    .clickable { TODO()}
+                    .clickable { TODO() }
                     .align(alignment = Alignment.End)
             )
 
@@ -105,8 +115,8 @@ fun Login(modifier: Modifier = Modifier) {
     }
 }
 
-//@Preview
-//@Composable
-//fun PreviewLoginScreen() {
-//    LoginScreen()
-//}
+@Preview(showBackground = true)
+@Composable
+fun PreviewLoginScreen() {
+    Login()
+}
