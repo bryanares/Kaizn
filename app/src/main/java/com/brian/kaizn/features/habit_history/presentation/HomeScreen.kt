@@ -25,16 +25,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.brian.kaizn.R
 
 class HomeScreen {
+//Add NavController to HomeScreen
 }
 
 
 @Composable
 fun Home(modifier: Modifier = Modifier, userName: String, profileImageResId: Int,onClick: () -> Unit) {
 
-    Surface {
+    Surface(Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .padding(all = 24.dp)
