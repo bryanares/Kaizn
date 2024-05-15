@@ -113,5 +113,6 @@ class KaiznViewModelTest {
         println("the id is ${states.last().habitId}")
         assertThat(states.last().isLoading).isFalse()
         assertThat(states.last().habitId == null).isFalse()
+        assertThat(states.last().habitId?.toInt() != 0).isTrue()
     }
 }
