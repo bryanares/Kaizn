@@ -1,9 +1,10 @@
-package com.brian.kaizn.features.habit_history.presentation
+package com.brian.kaizn.features.habit_history.presentation.homeScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,16 +17,22 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.brian.kaizn.R
 
 class HomeScreen {
@@ -34,27 +41,43 @@ class HomeScreen {
 
 
 @Composable
-fun Home(modifier: Modifier = Modifier, userName: String, profileImageResId: Int,onClick: () -> Unit) {
+fun Home(
+    modifier: Modifier = Modifier,
+    userName: String,
+    profileImageResId: Int,
+    onClick: () -> Unit
+) {
 
-    Surface(Modifier.fillMaxSize()) {
+    var habitName by remember { mutableStateOf("") }
+    var habitProgress by remember { mutableStateOf(0) }
+    var habitDate by remember { mutableStateOf("") }
+
+    Surface(
+        Modifier
+            .fillMaxSize()
+    ) {
         Column(
             modifier = Modifier
-                .padding(all = 24.dp)
+                .padding(all = 16.dp)
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
 
-            Box(
+            Row(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 // Custom greeting
                 Text(
                     text = "Welcome, $userName!\nLets Build some habits!",
 //            style = MaterialTheme.typography.h5,
-                    modifier = Modifier.align(Alignment.CenterEnd),
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(all = 16.dp),
                     softWrap = true
+
                 )
 
                 // Circular profile image
@@ -64,7 +87,7 @@ fun Home(modifier: Modifier = Modifier, userName: String, profileImageResId: Int
                     modifier = Modifier
                         .size(150.dp)
                         .clip(CircleShape)
-                        .align(Alignment.TopStart)
+//                        .align(Alignment.TopStart)
                 )
             }
 
@@ -82,12 +105,44 @@ fun Home(modifier: Modifier = Modifier, userName: String, profileImageResId: Int
                     }
                 }
             }
+
+            Column(
+                modifier = Modifier
+                    .padding(all = 16.dp),
+//                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Text(
+                    modifier = Modifier.padding(all = 16.dp),
+                    text = "Your Habits",
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+
+                Text(
+                    modifier = Modifier.padding(all = 16.dp),
+                    text = "Your Progress: 75%",
+                    style = MaterialTheme.typography.headlineLarge,
+                    textAlign = TextAlign.Center
+                )
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+//                        .height(320.dp)
+                )
+                {
+                    //Graph
+                }
+            }
+            // Add Entry button
             FloatingActionButton(
                 onClick = onClick,
                 modifier = Modifier
-//                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
                     .align(Alignment.End)
-                    .padding(16.dp),
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -95,7 +150,9 @@ fun Home(modifier: Modifier = Modifier, userName: String, profileImageResId: Int
                 )
             }
         }
+
     }
+
 }
 
 
