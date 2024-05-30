@@ -11,8 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.brian.kaizn.features.habit_history.presentation.Home
-import com.brian.kaizn.features.habit_history.presentation.HomeScreen
+import com.brian.kaizn.features.auth.presentation.login.Login
+import com.brian.kaizn.features.dashboard.NavDashboard
+import com.brian.kaizn.features.habit_history.presentation.homeScreen.Home
+import com.brian.kaizn.features.navigation.AppNavigationHost
 import com.brian.kaizn.ui.theme.KaiznTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,13 +24,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             KaiznTheme{
-                val navController  = rememberNavController()
+                val navHostController  = rememberNavController()
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    HomeScreen()
+                    AppNavigationHost(navController = navHostController)
                 }
             }
         }
@@ -55,6 +57,10 @@ fun GreetingPreview() {
 @Composable
 fun DefaultPreview() {
     KaiznTheme {
-        HomeScreen()
+        Login(
+            modifier = Modifier,
+            onLoggedIn = {},
+            onRegister = {}
+        )
     }
 }
