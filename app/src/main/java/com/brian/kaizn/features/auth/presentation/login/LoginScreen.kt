@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -29,12 +28,8 @@ import androidx.compose.ui.unit.sp
 import com.brian.kaizn.R
 
 
-class LoginScreen {
-
-}
-
 @Composable
-fun Login(modifier: Modifier = Modifier) {
+fun Login(modifier: Modifier = Modifier, onLoggedIn: () -> Unit, onRegister: () -> Unit) {
 
     var email by rememberSaveable {
         mutableStateOf("")
@@ -42,6 +37,7 @@ fun Login(modifier: Modifier = Modifier) {
     var password by rememberSaveable {
         mutableStateOf("")
     }
+//    val navController = rememberNavController()
     Surface {
 
         Column(
@@ -100,7 +96,7 @@ fun Login(modifier: Modifier = Modifier) {
 
             // Login button
             Button(
-                onClick = { /* Handle login click */ },
+                onClick = { onLoggedIn() },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Login")
@@ -113,7 +109,7 @@ fun Login(modifier: Modifier = Modifier) {
                 text = "New user? Register here",
 //            style = MaterialTheme.typography.body2,
                 modifier = Modifier
-                    .clickable { /* Handle register click */ }
+                    .clickable { onRegister() }
                     .align(alignment = Alignment.CenterHorizontally)
             )
         }
@@ -123,5 +119,5 @@ fun Login(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginScreen() {
-    Login()
+    Login(onLoggedIn = {}, onRegister = {})
 }
