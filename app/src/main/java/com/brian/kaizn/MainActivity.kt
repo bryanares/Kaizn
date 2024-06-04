@@ -26,30 +26,9 @@ class MainActivity : ComponentActivity() {
             KaiznTheme{
                 val navHostController  = rememberNavController()
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    AppNavigationHost(navController = navHostController)
-                }
+                    AppNavigationHost(navController = navHostController, modifier = Modifier.fillMaxSize())
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    KaiznTheme {
-        Greeting("Android")
     }
 }
 
