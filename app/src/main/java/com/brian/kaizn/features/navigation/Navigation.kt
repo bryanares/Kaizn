@@ -8,13 +8,17 @@ import androidx.navigation.compose.composable
 import com.brian.kaizn.R
 import com.brian.kaizn.features.auth.presentation.login.Login
 import com.brian.kaizn.features.auth.presentation.registration.Registration
+import com.brian.kaizn.features.dashboard.Dashboard
+import com.brian.kaizn.features.habit_history.presentation.addHabit.AddHabit
+import com.brian.kaizn.features.habit_history.presentation.addHabit.AddHabitScreen
 import com.brian.kaizn.features.habit_history.presentation.homeScreen.Home
 
 
 enum class AppDestinations {
     LOGIN,
     REGISTRATION,
-    HOME
+    DASHBOARD,
+    NEW_HABIT,
 }
 
 @Composable
@@ -25,19 +29,22 @@ fun AppNavigationHost(modifier: Modifier = Modifier, navController: NavHostContr
             Login(onRegister = {
                 navController.navigate(AppDestinations.REGISTRATION.name)
             }, onLoggedIn = {
-                navController.navigate(AppDestinations.HOME.name)
+                navController.navigate(AppDestinations.DASHBOARD.name)
             })
         }
         composable(AppDestinations.REGISTRATION.name) {
             Registration()
         }
 
-        composable(AppDestinations.HOME.name) {
-            Home(
-                modifier = Modifier,
-                userName = "Brian",
-                profileImageResId = R.drawable.apex
-            )
+        composable(AppDestinations.DASHBOARD.name) {
+            Dashboard(){
+                navController.navigate(AppDestinations.NEW_HABIT.name)
+            }
+        }
+        composable(AppDestinations.NEW_HABIT.name) {
+            AddHabitScreen(){
+
+            }
         }
     }
 }
