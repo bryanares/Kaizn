@@ -36,12 +36,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.brian.kaizn.R
 import com.brian.kaizn.features.dashboard.NavDashboard
+import com.brian.kaizn.features.navigation.AppDestinations
+import com.brian.kaizn.features.navigation.AppNavigationHost
 
 @Composable
 fun Home(
     modifier: Modifier = Modifier,
     userName: String,
     profileImageResId: Int,
+    onClick: () -> Unit
     ) {
 
     var habitName by remember { mutableStateOf("") }
@@ -132,7 +135,7 @@ fun Home(
 
         // Add Entry button
         FloatingActionButton(
-            onClick = { navController.navigate("AddEntry") },
+            onClick,
             modifier = Modifier
                 .padding(16.dp)
                 .align(Alignment.End)
@@ -150,6 +153,6 @@ fun Home(
 @Preview(showBackground = true)
 @Composable
 fun PreviewHomeScreen() {
-    Home(modifier = Modifier, userName = "Brian", profileImageResId = R.drawable.apex)
+    Home(modifier = Modifier, userName = "Brian", profileImageResId = R.drawable.apex, onClick = {})
 }
 
