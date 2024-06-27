@@ -2,10 +2,16 @@ package com.brian.kaizn.data.repository
 
 import com.brian.kaizn.data.local.model.entity.HabitEntity
 import com.brian.kaizn.data.local.model.entity.HabitWithGoalEntity
+import com.brian.kaizn.data.local.model.entity.UserEntity
 import com.brian.kaizn.data.utils.Rezults
+import kotlinx.coroutines.flow.Flow
 
 interface KaiznRepository {
 
+    //signup and signin
+    suspend fun signIn(email: String, password: String): Flow<Rezults<UserEntity>>
+
+    suspend fun signUp(email: String, password: String, name: String): Flow<Rezults<UserEntity>>
     //create new habit
     ///what do I expect as return? Flow<sealed class>
     //I want to return a list of instances of HabitEntryWithGoal
