@@ -4,6 +4,7 @@ plugins {
 //    alias(libs.plugins.androidKsp)
 //    id("com.google.dagger.hilt.android")
     alias(libs.plugins.devtoolsKsp)
+    alias(libs.plugins.googleGmsGoogleServices)
 }
 
 android {
@@ -84,7 +85,11 @@ dependencies {
     //dagger hilt
     implementation("com.google.dagger:hilt-android:2.44")
     ksp("com.google.dagger:hilt-android-compiler:2.44")
-
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation ("com.google.firebase:firebase-auth")
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+    implementation ("com.google.firebase:firebase-firestore")
+    implementation ("com.google.firebase:firebase-analytics:21.5.0")
 }
 // Allow references to generated code
 //kapt {
