@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "121943433305",
+    "project_id": "kaizn-91df2",
+    "storage_bucket": "kaizn-91df2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121943433305:android:d929d00b4937dafc63d148",
+        "android_client_info": {
+          "package_name": "com.brian.kaizn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoLw9NC4gvtFLzODWtNwMCKEpwVeO-9aw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
